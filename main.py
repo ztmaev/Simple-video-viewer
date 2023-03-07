@@ -142,7 +142,7 @@ def video(video_file):
                 print(f"Saved for {video_file} ({duration} s)")
 
         page = request.args.get(get_page_parameter(), type=int, default=1)
-    # recommendations if there are more than 3 videos
+
     if len(videos) > 3:
         recommendations = random.sample(videos, 3)
     else:
@@ -167,17 +167,15 @@ def move(video_file):
 
 @app.route('/search')
 def search():
-    query = request.args.get('query', '').lower()  # converting query to lowercase
+    query = request.args.get('query', '').lower()  
 
-    # Get a list of all videos containing the query in their filename
     videos = [f for f in os.listdir(videos_path) if os.path.isfile(
-        os.path.join(videos_path, f)) and query in f.lower()]  # converting filenames to lowercase before comparing
+        os.path.join(videos_path, f)) and query in f.lower()]  
 
-    if not videos:  # added check for empty videos list
+    if not videos:
         return render_template('search.html', query=query, hosted=hosted, title=title, durations={}, results=0,
                                pagination=None, videos=[], page=1)
 
-    ####
     durations = {}
     for video_file in videos:
         duration_string = ""
@@ -199,7 +197,6 @@ def search():
             with open(json_path, 'w') as f:
                 json.dump(duration_data, f)
 
-            # move the rest of the code inside the else block
             thumbnail_time = duration // 2
             thumbnail_filename = f"{os.path.splitext(video_file)[0]}.jpg"
             thumbnail_path = os.path.join(thumbnails_path, thumbnail_filename)
@@ -219,4 +216,4 @@ def search():
 
 
 if __name__ == '__main__':
-    app.run(port=port, debug=True)
+    app.run(port=port)
