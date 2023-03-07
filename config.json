@@ -1,0 +1,11 @@
+{
+  "host-address" : "http://localhost:5500/",
+  "port" : 5500,
+  "title" : "Home Hub",
+
+  "videos_path" : "root/videos/",
+  "json_path" : "root/data.json",
+  "errors_path" : "root/errors/",
+  "move_path" : "root/move/",
+  "thumbnails_path" : "root/thumbnails/"
+}

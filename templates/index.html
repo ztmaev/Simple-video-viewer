@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>{{ title }}</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="homepage"><a href="{{ url_for('index') }}">🏠</a></div>
+<h1 class="title">{{ title }}</h1>
+    <form action="/search" method="GET" style="z-index: 2; position: absolute; right: 1%; top: 1%;">
+      <input type="text" name="query" placeholder="Search...">
+      <button type="submit">Search</button>
+    </form>
+<div class="vd-parent">
+    {% if videos %}
+    {% for video in videos %}
+    <div class="vd-container">
+        <a class="hov" href="{{ url_for('video', video_file=video) }}"><i class="fa fa-play"></i></a>
+        <div class="video-thumbnail"
+             style="background-image: url('{{ hosted + 'media/root/thumbnails/' + video[:-4] + '.jpg' }}');"></div>
+
+        <video poster="{{ hosted + 'media/root/thumbnails/' + video[:-4] + '.jpg' }}" preload="none">
+            <source src="{{ hosted + 'media/root/videos/' + video }}" type="video/mp4">
+        </video>
+
+        <p class="separator"></p>
+        <p class="video-name">{{ video[:20] + '...' }}</p>
+        <p style="position: absolute; margin-top: 169px; margin-left: 295px; z-index: 2;"><a href="{{ url_for('move', video_file=video, page=page) }}">⤴️</a></p>
+        <p class="duration">{{durations[video]}}</p>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p class="no-videos">No videos found</p>
+    {% endif %}
+
+</div>
+<div class="pagination">
+    {{ pagination.links }}
+</div>
+</body>
+</html>

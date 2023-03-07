@@ -1,0 +1,4 @@
+Flask==2.2.2
+flask_paginate==2022.1.8
+moviepy==1.0.3
+Pillow==9.4.0
